@@ -63,8 +63,8 @@ all: main-build
 main-build: trafficlight7seg.elf secondary-outputs
 
 # Tool invocations
-trafficlight7seg.elf trafficlight7seg.map: $(OBJS) $(USER_OBJS) D:\DAI\ HOC\HK221\VIXULY\trafficlight7seg\STM32F103C6UX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "trafficlight7seg.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\DAI HOC\HK221\VIXULY\trafficlight7seg\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="trafficlight7seg.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+trafficlight7seg.elf trafficlight7seg.map: $(OBJS) $(USER_OBJS) C:\Users\HP\OneDrive\Documents\GitHub\MCU_LAB1\trafficlight7seg\STM32F103C6UX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "trafficlight7seg.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\HP\OneDrive\Documents\GitHub\MCU_LAB1\trafficlight7seg\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="trafficlight7seg.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
