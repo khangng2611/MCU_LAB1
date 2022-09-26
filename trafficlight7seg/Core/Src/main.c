@@ -280,45 +280,61 @@ int main(void)
       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
-      int time = 9;
+
+      int time = 10; //tgian tong 1 chu ki
+      int traffic_ord1[3] = {3,2,5};	//thu tu va tgian cua den xanh-vang-do
+      int traffic_ord2[3] = {5,3,2};	//thu tu va tgian cua den do-xanh-vang
+      int i1 = 0, i2 = 0;
+      int tem1 = traffic_ord1[i1], tem2 = traffic_ord2[i2];
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
       while (1)
       {
-    	  	  	  	if (time <= -1) {
-    	      	  		time = 9;
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 1);
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
-    	      	  	}
-    	      	  	if (time == 6) {
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
-    	      	  	}
-    	      	  	if (time == 4) {
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
-    	      	  	}
-    	      	  	if (time == 1) {
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
-    	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
-    	      	  	}
-    	      	  	if (time <= 4) display7SEG(time+1);
-    	      	  	else if (time <= 6) display7SEG(time-4);
-    	      	  	else display7SEG(time-6);
+    	  if (time <= 0) {
+    		  time = 10; i1 = 0; i2 = 0;
+    		  tem1 = traffic_ord1[i1], tem2 = traffic_ord2[i2];
+    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 1);
+    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
+    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
+    	  }
+    	  if (tem1 <= 0) {
+    		  i1 ++;
+    		  tem1 = traffic_ord1[i1];
+    		  switch (i1) {
+    		  	  case 1:
+  	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+  	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
+  	      	  		break;
+    		  	  case 2:
+  	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
+  	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
+  	      	  		break;
+    		  }
+    	  }
+    	  if (tem2 <= 0) {
+    		  i2 ++;
+    		  tem2 = traffic_ord2[i2];
+    		  switch (i2) {
+    		  	  case 1:
+  	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
+  	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
+ 	      	  		break;
+    		  	  case 2:
+  	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
+  	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
+  	      	  		break;
+    		  }
+    	  }
+    	  display7SEG(tem1%10);
+    	  display7SEG1(tem2%10);
+    	  time--;
+    	  tem1--;
+    	  tem2--;
+    	  HAL_Delay(1000);
 
-    	      	  	if (time <= 1) display7SEG1(time+1);
-    	      	  	else if (time <= 4) display7SEG1(time-1);
-    	        	else display7SEG1(time-4);
-
-
-    	           	time--;
-    	      	  	HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
