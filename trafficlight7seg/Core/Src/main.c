@@ -274,6 +274,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  	  /// den1: den xanh truoc, den2: den do truoc
   	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 1);
       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
@@ -282,10 +283,10 @@ int main(void)
       HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
 
       int time = 10; //tgian tong 1 chu ki
-      int traffic_ord1[3] = {3,2,5};	//thu tu va tgian cua den xanh-vang-do
-      int traffic_ord2[3] = {5,3,2};	//thu tu va tgian cua den do-xanh-vang
-      int i1 = 0, i2 = 0;
-      int tem1 = traffic_ord1[i1], tem2 = traffic_ord2[i2];
+      int traffic_ord1[3] = {3,2,5};	//thu tu va tgian cua den1 xanh-vang-do
+      int traffic_ord2[3] = {5,3,2};	//thu tu va tgian cua den2 do-xanh-vang
+      int i1 = 0, i2 = 0; //bien de chay array
+      int tem1 = traffic_ord1[i1], tem2 = traffic_ord2[i2]; //tgian current cua den1, den2
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -300,10 +301,10 @@ int main(void)
     		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
     		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
     	  }
-    	  if (tem1 <= 0) {
+    	  if (tem1 <= 0) { //het tgian cua 1 loai den
     		  i1 ++;
-    		  tem1 = traffic_ord1[i1];
-    		  switch (i1) {
+    		  tem1 = traffic_ord1[i1]; //gan tiep tgian cua den tiep theo
+    		  switch (i1) {  //neu i=1, chuyen tu xanh->vang; i=2, chuyen tu vang->do
     		  	  case 1:
   	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
   	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
@@ -314,10 +315,10 @@ int main(void)
   	      	  		break;
     		  }
     	  }
-    	  if (tem2 <= 0) {
+    	  if (tem2 <= 0) { //het tgian cua 1 loai den, gan tiep tgian cua den tiep theo
     		  i2 ++;
-    		  tem2 = traffic_ord2[i2];
-    		  switch (i2) {
+    		  tem2 = traffic_ord2[i2]; //gan tiep tgian cua den tiep theo
+    		  switch (i2) { //neu i=1, chuyen tu xanh->vang; i=2, chuyen tu vang->do
     		  	  case 1:
   	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
   	      	  		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);

@@ -937,6 +937,7 @@ int main(void)
   MX_GPIO_Init();
  800080a:	f000 f931 	bl	8000a70 <MX_GPIO_Init>
   /* USER CODE BEGIN 2 */
+  	  /// den1: den xanh truoc, den2: den do truoc
   	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 1);
  800080e:	2201      	movs	r2, #1
  8000810:	2108      	movs	r1, #8
@@ -968,25 +969,25 @@ int main(void)
  8000846:	4868      	ldr	r0, [pc, #416]	; (80009e8 <main+0x1ec>)
  8000848:	f000 fcca 	bl	80011e0 <HAL_GPIO_WritePin>
 
-      int time = 20; //tgian tong 1 chu ki
- 800084c:	2314      	movs	r3, #20
+      int time = 10; //tgian tong 1 chu ki
+ 800084c:	230a      	movs	r3, #10
  800084e:	62fb      	str	r3, [r7, #44]	; 0x2c
-      int traffic_ord1[3] = {8,2,10};	//thu tu va tgian cua den xanh-vang-do
+      int traffic_ord1[3] = {3,2,5};	//thu tu va tgian cua den1 xanh-vang-do
  8000850:	4a66      	ldr	r2, [pc, #408]	; (80009ec <main+0x1f0>)
  8000852:	f107 0310 	add.w	r3, r7, #16
  8000856:	ca07      	ldmia	r2, {r0, r1, r2}
  8000858:	e883 0007 	stmia.w	r3, {r0, r1, r2}
-      int traffic_ord2[3] = {10,8,2};	//thu tu va tgian cua den do-xanh-vang
+      int traffic_ord2[3] = {5,3,2};	//thu tu va tgian cua den2 do-xanh-vang
  800085c:	4a64      	ldr	r2, [pc, #400]	; (80009f0 <main+0x1f4>)
  800085e:	1d3b      	adds	r3, r7, #4
  8000860:	ca07      	ldmia	r2, {r0, r1, r2}
  8000862:	e883 0007 	stmia.w	r3, {r0, r1, r2}
-      int i1 = 0, i2 = 0;
+      int i1 = 0, i2 = 0; //bien de chay array
  8000866:	2300      	movs	r3, #0
  8000868:	62bb      	str	r3, [r7, #40]	; 0x28
  800086a:	2300      	movs	r3, #0
  800086c:	627b      	str	r3, [r7, #36]	; 0x24
-      int tem1 = traffic_ord1[i1], tem2 = traffic_ord2[i2];
+      int tem1 = traffic_ord1[i1], tem2 = traffic_ord2[i2]; //tgian current cua den1, den2
  800086e:	6abb      	ldr	r3, [r7, #40]	; 0x28
  8000870:	009b      	lsls	r3, r3, #2
  8000872:	3330      	adds	r3, #48	; 0x30
@@ -1008,8 +1009,8 @@ int main(void)
  800088a:	6afb      	ldr	r3, [r7, #44]	; 0x2c
  800088c:	2b00      	cmp	r3, #0
  800088e:	dc27      	bgt.n	80008e0 <main+0xe4>
-    		  time = 20; i1 = 0; i2 = 0;
- 8000890:	2314      	movs	r3, #20
+    		  time = 10; i1 = 0; i2 = 0;
+ 8000890:	230a      	movs	r3, #10
  8000892:	62fb      	str	r3, [r7, #44]	; 0x2c
  8000894:	2300      	movs	r3, #0
  8000896:	62bb      	str	r3, [r7, #40]	; 0x28
@@ -1049,7 +1050,7 @@ int main(void)
  80008da:	4843      	ldr	r0, [pc, #268]	; (80009e8 <main+0x1ec>)
  80008dc:	f000 fc80 	bl	80011e0 <HAL_GPIO_WritePin>
     	  }
-    	  if (tem1 <= 0) {
+    	  if (tem1 <= 0) { //het tgian cua 1 loai den
  80008e0:	6a3b      	ldr	r3, [r7, #32]
  80008e2:	2b00      	cmp	r3, #0
  80008e4:	dc26      	bgt.n	8000934 <main+0x138>
@@ -1057,14 +1058,14 @@ int main(void)
  80008e6:	6abb      	ldr	r3, [r7, #40]	; 0x28
  80008e8:	3301      	adds	r3, #1
  80008ea:	62bb      	str	r3, [r7, #40]	; 0x28
-    		  tem1 = traffic_ord1[i1];
+    		  tem1 = traffic_ord1[i1]; //gan tiep tgian cua den tiep theo
  80008ec:	6abb      	ldr	r3, [r7, #40]	; 0x28
  80008ee:	009b      	lsls	r3, r3, #2
  80008f0:	3330      	adds	r3, #48	; 0x30
  80008f2:	443b      	add	r3, r7
  80008f4:	f853 3c20 	ldr.w	r3, [r3, #-32]
  80008f8:	623b      	str	r3, [r7, #32]
-    		  switch (i1) {
+    		  switch (i1) {  //neu i=1, chuyen tu xanh->vang; i=2, chuyen tu vang->do
  80008fa:	6abb      	ldr	r3, [r7, #40]	; 0x28
  80008fc:	2b01      	cmp	r3, #1
  80008fe:	d003      	beq.n	8000908 <main+0x10c>
@@ -1101,7 +1102,7 @@ int main(void)
     		  }
     	  }
  8000934:	bf00      	nop
-    	  if (tem2 <= 0) {
+    	  if (tem2 <= 0) { //het tgian cua 1 loai den, gan tiep tgian cua den tiep theo
  8000936:	69fb      	ldr	r3, [r7, #28]
  8000938:	2b00      	cmp	r3, #0
  800093a:	dc28      	bgt.n	800098e <main+0x192>
@@ -1109,14 +1110,14 @@ int main(void)
  800093c:	6a7b      	ldr	r3, [r7, #36]	; 0x24
  800093e:	3301      	adds	r3, #1
  8000940:	627b      	str	r3, [r7, #36]	; 0x24
-    		  tem2 = traffic_ord2[i2];
+    		  tem2 = traffic_ord2[i2]; //gan tiep tgian cua den tiep theo
  8000942:	6a7b      	ldr	r3, [r7, #36]	; 0x24
  8000944:	009b      	lsls	r3, r3, #2
  8000946:	3330      	adds	r3, #48	; 0x30
  8000948:	443b      	add	r3, r7
  800094a:	f853 3c2c 	ldr.w	r3, [r3, #-44]
  800094e:	61fb      	str	r3, [r7, #28]
-    		  switch (i2) {
+    		  switch (i2) { //neu i=1, chuyen tu xanh->vang; i=2, chuyen tu vang->do
  8000950:	6a7b      	ldr	r3, [r7, #36]	; 0x24
  8000952:	2b01      	cmp	r3, #1
  8000954:	d003      	beq.n	800095e <main+0x162>
